@@ -15,7 +15,7 @@ refs0 acceso perchè specifichiamo il voltaggio di riferimento
 
 ADMUX |= 1 << MUX0 |= 1 << REFS0 (channel 1)
 ADMUX |= 1 << MUX0 |= 1 << MUX1 |= 1<< REFS0 (channel 3)
-ADMUX |= 1 << MUX0 |= 1 << MUX2 |= 1<< REFS0 (channel 5)
+ADMUX |= 1 << MUX0 |= 1 << MUX3 |= 1<< REFS0 (channel 5)
 
 per la conversione analogica utilizzeremo il metodo del Polling:
 aspettiamo che finisca la conversione per poi passare al prossimo step.

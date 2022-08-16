@@ -21,14 +21,13 @@ void adc_setup(){
 }
 void task1(){
         volatile unsigned int x = 0;
-        static const uint16_t ADC_to_V = 1*5/1023.0;
+        static const float ADC_to_V = 1*5/1023.0;
         static const int ADC_CHANNELS = 3;
-        volatile uint16_t ADC_read[ADC_CHANNELS];
-        memset(ADC_read,0,ADC_CHANNELS*sizeof(float));
+        float ADC_read[3] = {0,0,0};
         int i = 0;
         const int n = 50;
-        const uint16_t n_inv = 1.0/n;
-        uint16_t sum = 0;
+        const float n_inv = 1.0/n;
+        float sum = 0;
         //iniziamo la conversione
         while(i<3){
             for (int k = 0; k < n;k++){
@@ -36,20 +35,22 @@ void task1(){
                 while(ADCSRA & (1 << ADSC)) x++;
                 sum += ADC;
             }
-            ADC_read[i] = (uint16_t)sum*n_inv*ADC_to_V;
+            ADC_read[i] = (float)sum*n_inv*ADC_to_V;
             i++;
-            ADMUX +=2;
+            ADMUX=0;
+            if(i==1) ADMUX |= (1 << MUX0) | (1 << MUX1) | (1<< REFS0);
+            else if(i==2) ADMUX |= (1 << MUX0) | (1 << MUX2) | (1<< REFS0);
             sum = 0;
         }
+        printf("%f,%f,%f\n",ADC_read[0],ADC_read[1],ADC_read[2]);
+        _delay_ms(1000);
         ADMUX=0;
         ADMUX |= (1<<MUX0);
         ADMUX |= (1<<REFS0);
-        printf("%u,%u,%u\n",ADC_read[0],ADC_read[1],ADC_read[2]);
 }
 int main(){
     printf_init();
     adc_setup();
     while(1) task1();
-    _delay_ms(1000);
     return 0;
 }
