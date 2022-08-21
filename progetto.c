@@ -6,7 +6,6 @@
 #include <string.h>
 #include "./avr_common/uart.h"
 
-#define PIN_MASK 11111111
 #define TCCRA_1_MASK (1<<WGM10)|(1<<COM1C0)|(1<<COM1C1)|(1<<COM1A0)|(1<<COM1A1)
 #define TCCRB_1_MASK ((1<<WGM12)|(1<<CS10))
 #define TCCRA_3_MASK (1<<WGM30)|(1<<COM3B0)|(1<<COM3B1)
