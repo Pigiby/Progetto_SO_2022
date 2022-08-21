@@ -1,0 +1,10 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022'
+avr-gcc -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 -I. -I../avr_common  -D__AVR_3_BYTE_PC__ -Wl,-u,vfprintf -lprintf_flt -lm -c  -o avr_common/uart.o avr_common/uart.c
+avr-gcc -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 -I. -I../avr_common  -D__AVR_3_BYTE_PC__ -Wl,-u,vfprintf -lprintf_flt -lm -c  -o oscilloscope.o oscilloscope.c
+avr-gcc -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 -I. -I../avr_common  -D__AVR_3_BYTE_PC__ -Wl,-u,vfprintf -lprintf_flt -lm -o oscilloscope.elf oscilloscope.o ./avr_common/uart.o 
+avr-gcc -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 -I. -I../avr_common  -D__AVR_3_BYTE_PC__ -Wl,-u,vfprintf -lprintf_flt -lm -c  -o progetto.o progetto.c
+avr-gcc -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 -I. -I../avr_common  -D__AVR_3_BYTE_PC__ -Wl,-u,vfprintf -lprintf_flt -lm -o progetto.elf progetto.o ./avr_common/uart.o 
+rm progetto.o oscilloscope.o
+make: Leaving directory '/mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022'
+ 

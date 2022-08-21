@@ -1,3 +1,4 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -5,7 +6,7 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Aug 16 18:56:59 2022
+# Make data base, printed on Sun Aug 21 17:00:41 2022
 
 # Variables
 
@@ -14,7 +15,7 @@
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = ELECTRON_RUN_AS_NODE/w:
+WSLENV = VSCODE_WSL_EXT_LOCATION/up
 # default
 .SHELLFLAGS := -c
 # makefile (from 'avr_common/avr.mk', line 11)
@@ -30,9 +31,9 @@ CURDIR := /mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"it","availableLanguages":{}}
+VSCODE_NLS_CONFIG = {"locale":"it","availableLanguages":{"*":"it"},"_languagePackId":"733e63a346861b85a80ab453548d8e7a.it","_translationsConfigFile":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it/tcf.json","_cacheRoot":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it","_resolvedLanguagePackCoreLocation":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it/e4503b30fc78200f846c62cf8091b76ff5547662","_corruptedFile":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code/bin/code
+_ = /home/pigy/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/node
 # makefile (from 'avr_common/avr.mk', line 19)
 AVRDUDE_FLAGS = -p m2560 -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -b 115200 $(AVRDUDE_NO_VERIFY) $(AVRDUDE_VERBOSE) $(AVRDUDE_ERASE_COUNTER) -D -q -V -C /usr/share/arduino/hardware/tools/avr/../avrdude.conf -c wiring
 # makefile (from 'avr_common/avr.mk', line 1)
@@ -54,7 +55,7 @@ INCLUDE_DIRS = -I. -I../avr_common
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/pigy/.vscode-server/bin/6d9b74a70ca9c7733b29f0456fd8195364076dda/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/Simple Device Model:/mnt/c/Users/pgb_2/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/pgb_2/AppData/Local/GitHubDesktop/bin:/mnt/c/xampp/php:/snap/bin
+PATH = /home/pigy/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python310/Scripts/:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python310/:/mnt/c/Python34/Scripts:/mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/pgb_2/AppData/Local/GitHubDesktop/bin:/mnt/c/xampp/php:/mnt/c/Users/pgb_2/AppData/Roaming/npm:/mnt/c/Users/pgb_2/AppData/Local/Yarn/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v10.1:/mnt/c/Python34:/snap/bin
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # makefile (from 'avr_common/avr.mk', line 8)
@@ -62,7 +63,7 @@ AVRDUDE = avrdude
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-64cd1490-a263-46c3-bb0e-216954965c46.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-212346a6-e1c3-4a56-85df-d9bde88afee5.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -76,7 +77,7 @@ PWD = /mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/4146_interop
+WSL_INTEROP = /run/WSL/9104_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
@@ -104,9 +105,9 @@ MAKECMDGOALS := all
 # makefile (from 'avr_common/avr.mk', line 6)
 AS_OPTS = -x assembler-with-cpp $(CC_OPTS)
 # environment
-SHLVL = 1
+SHLVL = 0
 # makefile (from 'avr_common/avr.mk', line 5)
-CC_OPTS = -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 $(INCLUDE_DIRS)  -D__AVR_3_BYTE_PC__
+CC_OPTS = -Wall --std=gnu99 -DF_CPU=16000000UL -O3 -funsigned-char -mmcu=atmega2560 $(INCLUDE_DIRS)  -D__AVR_3_BYTE_PC__ -Wl,-u,vfprintf -lprintf_flt -lm
 # makefile (from 'avr_common/avr.mk', line 2)
 CC = avr-gcc
 # default
@@ -116,7 +117,7 @@ USER = pigy
 # makefile
 .DEFAULT_GOAL := all
 # environment
-NAME = Code
+NAME = pigy
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from 'avr_common/avr.mk', line 13)
@@ -168,7 +169,7 @@ TERM = xterm-256color
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # variable set hash-table stats:
-# Load=79/1024=8%, Rehash=0, Collisions=10/125=8%
+# Load=79/1024=8%, Rehash=0, Collisions=9/119=8%
 
 # Pattern-specific Variable Values
 
@@ -176,10 +177,10 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 65, inode 844424930264742): 12 files, no impossibilities.
+# . (device 65, inode 844424930264742): 14 files, no impossibilities.
 # avr_common (device 65, inode 1688849860479703): 4 files, no impossibilities so far.
 
-# 16 files, no impossibilities in 2 directories.
+# 18 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -209,26 +210,7 @@ progetto.o: progetto.c
 #  Implicit/static pattern stem: 'progetto'
 #  File is an intermediate prerequisite.
 #  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := progetto.o
-# automatic
-# % := 
-# automatic
-# * := progetto
-# automatic
-# + := progetto.c
-# automatic
-# | := 
-# automatic
-# < := progetto.c
-# automatic
-# ^ := progetto.c
-# automatic
-# ? := progetto.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
+#  File has not been updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 27):
 	$(CC) $(CC_OPTS) -c  -o $@ $<
 
@@ -244,9 +226,7 @@ all: oscilloscope.elf progetto.elf
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  Successfully updated.
 
 .phony: clean all
 #  Implicit rule search has not been done.
@@ -261,18 +241,16 @@ all: oscilloscope.elf progetto.elf
 progetto.elf: progetto.o avr_common/uart.o
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'progetto'
-#  Last modified 2022-08-16 18:46:27.6094451
+#  Last modified 2022-08-21 16:46:19.7162856
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  Successfully updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 33):
 	$(CC) $(CC_OPTS) -o $@ $< $(OBJS) $(LIBS)
 
 avr_common/uart.o: avr_common/uart.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'avr_common/uart'
-#  Last modified 2022-08-16 18:46:27.2984527
+#  Last modified 2022-08-21 16:46:19.4202291
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 27):
@@ -288,13 +266,14 @@ Makefile:
 # Not a target:
 progetto.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-16 18:56:12.3251668
+#  Last modified 2022-08-21 16:46:11.2659004
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 avr_common/uart.c:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-08-16 16:44:09.6518928
 #  File has been updated.
 #  Successfully updated.
@@ -319,13 +298,12 @@ oscilloscope.o: oscilloscope.c
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 27):
- 
 	$(CC) $(CC_OPTS) -c  -o $@ $<
 
 oscilloscope.elf: oscilloscope.o avr_common/uart.o
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'oscilloscope'
-#  Last modified 2022-08-16 18:46:27.3734449
+#  Last modified 2022-08-21 16:46:19.5290237
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 33):
@@ -334,7 +312,7 @@ oscilloscope.elf: oscilloscope.o avr_common/uart.o
 # Not a target:
 avr_common/avr.mk:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-16 16:44:09.6355696
+#  Last modified 2022-08-16 19:11:28.1349814
 #  File has been updated.
 #  Successfully updated.
 
@@ -346,12 +324,12 @@ avr_common/avr.mk:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 35 / storage = 356 B / avg = 10 B
-# current buf: size = 8162 B / used = 356 B / count = 35 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 37 / storage = 375 B / avg = 10 B
+# current buf: size = 8162 B / used = 375 B / count = 37 / avg = 10 B
 
-# strcache performance: lookups = 71 / hit rate = 50%
+# strcache performance: lookups = 73 / hit rate = 49%
 # hash-table stats:
-# Load=35/8192=0%, Rehash=0, Collisions=4/71=6%
-# Finished Make data base on Tue Aug 16 18:56:59 2022
+# Load=37/8192=0%, Rehash=0, Collisions=4/73=5%
+# Finished Make data base on Sun Aug 21 17:00:41 2022
 
  
