@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Aug 21 17:00:41 2022
+# Make data base, printed on Mon Aug 22 19:34:15 2022
 
 # Variables
 
@@ -63,7 +63,7 @@ AVRDUDE = avrdude
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-212346a6-e1c3-4a56-85df-d9bde88afee5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-265d16ff-ae8a-424c-bdcb-767d84b380e6.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -77,7 +77,7 @@ PWD = /mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/9104_interop
+WSL_INTEROP = /run/WSL/41_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
@@ -169,7 +169,7 @@ TERM = xterm-256color
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # variable set hash-table stats:
-# Load=79/1024=8%, Rehash=0, Collisions=9/119=8%
+# Load=79/1024=8%, Rehash=0, Collisions=10/125=8%
 
 # Pattern-specific Variable Values
 
@@ -177,10 +177,10 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 65, inode 844424930264742): 14 files, no impossibilities.
+# . (device 65, inode 844424930264742): 16 files, no impossibilities.
 # avr_common (device 65, inode 1688849860479703): 4 files, no impossibilities so far.
 
-# 18 files, no impossibilities in 2 directories.
+# 20 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -205,15 +205,6 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Files
 
-progetto.o: progetto.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'progetto'
-#  File is an intermediate prerequisite.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'avr_common/avr.mk', line 27):
-	$(CC) $(CC_OPTS) -c  -o $@ $<
-
 # Not a target:
 oscilloscope.c:
 #  Implicit rule search has been done.
@@ -226,7 +217,9 @@ all: oscilloscope.elf progetto.elf
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
 
 .phony: clean all
 #  Implicit rule search has not been done.
@@ -238,19 +231,16 @@ all: oscilloscope.elf progetto.elf
 #  Modification time never checked.
 #  File has not been updated.
 
-progetto.elf: progetto.o avr_common/uart.o
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'progetto'
-#  Last modified 2022-08-21 16:46:19.7162856
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'avr_common/avr.mk', line 33):
-	$(CC) $(CC_OPTS) -o $@ $< $(OBJS) $(LIBS)
+# Not a target:
+progetto.elf:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 avr_common/uart.o: avr_common/uart.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'avr_common/uart'
-#  Last modified 2022-08-21 16:46:19.4202291
+#  Last modified 2022-08-22 11:37:30.7567939
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 27):
@@ -264,17 +254,9 @@ Makefile:
 #  Successfully updated.
 
 # Not a target:
-progetto.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-21 16:46:11.2659004
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
 avr_common/uart.c:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-08-16 16:44:09.6518928
+#  Last modified 2022-08-22 10:11:57.5144198
 #  File has been updated.
 #  Successfully updated.
 
@@ -293,19 +275,41 @@ clean:
 
 oscilloscope.o: oscilloscope.c
 #  Implicit rule search has been done.
+ 
 #  Implicit/static pattern stem: 'oscilloscope'
 #  File is an intermediate prerequisite.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := oscilloscope.o
+# automatic
+# % := 
+# automatic
+# * := oscilloscope
+# automatic
+# + := oscilloscope.c
+# automatic
+# | := 
+# automatic
+# < := oscilloscope.c
+# automatic
+# ^ := oscilloscope.c
+# automatic
+# ? := oscilloscope.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
 #  recipe to execute (from 'avr_common/avr.mk', line 27):
 	$(CC) $(CC_OPTS) -c  -o $@ $<
 
 oscilloscope.elf: oscilloscope.o avr_common/uart.o
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'oscilloscope'
-#  Last modified 2022-08-21 16:46:19.5290237
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
 #  recipe to execute (from 'avr_common/avr.mk', line 33):
 	$(CC) $(CC_OPTS) -o $@ $< $(OBJS) $(LIBS)
 
@@ -317,19 +321,19 @@ avr_common/avr.mk:
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=0/57=0%
+# Load=14/1024=1%, Rehash=0, Collisions=0/45=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 37 / storage = 375 B / avg = 10 B
-# current buf: size = 8162 B / used = 375 B / count = 37 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 389 B / avg = 10 B
+# current buf: size = 8162 B / used = 389 B / count = 38 / avg = 10 B
 
-# strcache performance: lookups = 73 / hit rate = 49%
+# strcache performance: lookups = 66 / hit rate = 42%
 # hash-table stats:
-# Load=37/8192=0%, Rehash=0, Collisions=4/73=5%
-# Finished Make data base on Sun Aug 21 17:00:41 2022
+# Load=38/8192=0%, Rehash=0, Collisions=2/66=3%
+# Finished Make data base on Mon Aug 22 19:34:15 2022
 
  

@@ -1,26 +1,53 @@
-#include <util/delay.h>
 #include <stdio.h>
-#include <stdint.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include "./avr_common/uart.h"
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <termios.h>
 
-#define PIN_MASK 0x0F //gli ultimi 4 bit della porta b (50.53)
+int main() {
+	int fd, len;
+	char text[400];
+	struct termios options; /* Serial ports setting */
 
-volatile uint8_t previous_pins;
-volatile uint8_t current_pins;
+	fd = open("/dev/ttyACM0", O_RDWR | O_NDELAY | O_NOCTTY);
+	if (fd < 0) {
+		perror("Error opening serial port");
+		return -1;
+	}
 
-int main(void){
-    printf_init();
-    DDRB &= ~PIN_MASK; //imposta gli ultimi 4 bit come input
-    PORTB |= PIN_MASK; //mette gli ultimi 4 bit in pull up
-    while(1){
-        current_pins = PINB;
-        
-        if(current_pins != previous_pins){
-            printf("stato cambiato da %x a %x\n",previous_pins,current_pins);
-            previous_pins = current_pins;
+	/* Read current serial port settings */
+	// tcgetattr(fd, &options);
+	
+	/* Set up serial port */
+	options.c_cflag = B19200 | CS8 | CLOCAL | CREAD;
+	options.c_iflag = IGNPAR;
+	options.c_oflag = 0;
+	options.c_lflag = 0;
+
+	/* Apply the settings */
+	tcflush(fd, TCIFLUSH);
+	tcsetattr(fd, TCSANOW, &options);
+
+	len=1;
+    sleep(5);
+	/* Read from serial port */
+    int i;
+    FILE * fptr;
+    fptr = fopen("data.txt", "w"); // "w" defines "writing mode"
+    L:
+	memset(text, 0, 400);
+	len = read(fd, text, 400);
+    if(len==0){
+        fclose(fptr);
+        close(fd);
+	    return 0;
         }
-        _delay_ms(1000);
-    }
+            for (i = 0; i<strlen(text); i++) {
+                fputc(text[i], fptr);
+                if(text[i]==EOF) goto L;
+            }
+	printf("Received %d bytes\n", len);
+	printf("Received string: %s\n", text);
+    sleep(1);
+    goto L;
 }

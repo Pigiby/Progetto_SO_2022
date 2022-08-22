@@ -34,3 +34,12 @@ sum = sum + ADC -> adc letta n volte
 ADC[i] = (sum*ADCv)/n
 
 ADCv converte in volt ed è dato da : ADCv= 1*5/1023
+
+
+U2Xn= 0 asynchronous normal mode
+
+	ubbrN = f/16BAUD - 1
+
+16 bit register
+UBBRnH
+
