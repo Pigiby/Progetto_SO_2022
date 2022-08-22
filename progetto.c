@@ -11,7 +11,19 @@
 #define TCCRA_3_MASK (1<<WGM30)|(1<<COM3B0)|(1<<COM3B1)
 #define TCCRB_3_MASK ((1<<WGM32)|(1<<CS30)|(1<<CS31))
 #define TCCRA_4_MASK (1<<WGM40)|(1<<COM4B0)|(1<<COM4B1)
-#define TCCRB_4_MASK ((1<<WGM42)|(1<<CS40)|(1<<CS42))
+#define TCCRB_4_MASK ((1<<WGM42)|(1<<CS42))
+volatile uint8_t interrupt_occurred=0;
+
+// our interrupt routine installed in
+// interrupt vector position
+// corresponding to output compare
+// of timer 5
+
+uint16_t int_count=0;
+ISR(TIMER5_COMPA_vect) {
+  interrupt_occurred=1;
+  int_count++;
+}
 // adc setup
 
 void adc_setup(){
@@ -59,6 +71,16 @@ void task(){
         ADMUX |= (1<<REFS0);
 }
 int main(){
+    TCCR5A = 0;
+    TCCR5B = (1 << WGM52) | (1 << CS50) | (1 << CS52); 
+    const int timer_duration_ms =100;
+    uint16_t ocrval=(uint16_t)(15.62*timer_duration_ms);
+    // clear int
+     cli();
+    TIMSK5 |= (1 << OCIE5A);  // enable the timer interrupt
+    // enable int
+    sei();
+    OCR5A = ocrval;
     printf_init();
     TCCR1A=TCCRA_1_MASK;
     TCCR1B=TCCRB_1_MASK;
@@ -95,14 +117,14 @@ int main(){
     
     adc_setup();
     while(1){
+        while (! interrupt_occurred);
+        interrupt_occurred=0;
         OCR1CL = intensity;
         OCR4BL = intensity;
         OCR3BL = intensity;
-
-        printf("v %u\n", (int) OCR1CL);
          // from delay.h, wait 1 sec
         intensity+=8;
         task();
+        if(int_count >600) return 0;
     }
-    return 0;
 }
