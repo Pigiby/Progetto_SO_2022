@@ -53,7 +53,7 @@ void task(){
                 while(ADCSRA & (1 << ADSC)) x++;
                 sum += ADC;
             }
-            ADC_read[i] = (float)sum*n_inv*ADC_to_V;
+            ADC_read[i] = (float)sum*n_inv*ADC_to_V-2.5;
             i++;
             ADMUX=0;
             if(i==1) {
@@ -64,7 +64,7 @@ void task(){
                 }
             sum = 0;
         }
-        printf("%f %f %f\n ",ADC_read[0],ADC_read[1],ADC_read[2]);
+        printf("%f %f %f %f\n ",int_count/10.0,ADC_read[0],ADC_read[1],ADC_read[2]);
         _delay_ms(100);
         ADMUX=0;
         ADMUX |= (1<<MUX0);
