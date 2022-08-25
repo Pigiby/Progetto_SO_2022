@@ -1,12 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
+#include <string.h>
 
 int main() {
 	int fd, len;
-	char text[400];
+	char text[300];
 	struct termios options; /* Serial ports setting */
 
 	fd = open("/dev/ttyACM0", O_RDWR | O_NDELAY | O_NOCTTY);
@@ -28,15 +30,27 @@ int main() {
 	tcflush(fd, TCIFLUSH);
 	tcsetattr(fd, TCSANOW, &options);
 
-	len=1;
-    sleep(5);
-	/* Read from serial port */
+	/* Write to serial port */
+    char msg[300];
+    float f=0.0;
+    printf("inserisci una frequenza compresa tra 1 e 32766 :");
+    scanf("%f", &f );
+    gcvt(f, 3, msg);
+    strcat(msg,"\n");
+	strcpy(text, msg);
+	len = strlen(text);
+	len = write(fd, text, len);
+
+	printf("Wrote %d bytes over UART\n", len);
+
+	printf("You have 5s to send me some input data...\n");
+	sleep(5);
     int i;
     FILE * fptr;
     fptr = fopen("data.txt", "w"); // "w" defines "writing mode"
     L:
-	memset(text, 0, 400);
-	len = read(fd, text, 400);
+	memset(text, 0, 300);
+	len = read(fd, text, 300);
     if(len==0){
         fclose(fptr);
         close(fd);
@@ -48,6 +62,7 @@ int main() {
             }
 	printf("Received %d bytes\n", len);
 	printf("Received string: %s\n", text);
-    sleep(1);
+    sleep(f/100+1);
     goto L;
+	/* Read from serial port */
 }
