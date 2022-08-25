@@ -6,7 +6,7 @@
 #include <termios.h>
 #include <string.h>
 
-int main() {
+int main(){
 	int fd, len;
 	char text[300];
 	struct termios options; /* Serial ports setting */
