@@ -8,7 +8,7 @@
 
 int main(){
 	int fd, len;
-	char text[300];
+	char text[400];
 	struct termios options; /* Serial ports setting */
 
 	fd = open("/dev/ttyACM0", O_RDWR | O_NDELAY | O_NOCTTY);
@@ -31,9 +31,9 @@ int main(){
 	tcsetattr(fd, TCSANOW, &options);
 
 	/* Write to serial port */
-    char msg[300];
+    char msg[400];
     float f=0.0;
-    printf("inserisci una frequenza compresa tra 1 e 32766 :");
+    printf("ogni quanti millisecondi campionare (inserire un numero tra 1 e 4194):");
     scanf("%f", &f );
     gcvt(f, 3, msg);
     strcat(msg,"\n");
@@ -44,13 +44,15 @@ int main(){
 	printf("Wrote %d bytes over UART\n", len);
 
 	printf("You have 5s to send me some input data...\n");
+	float sleeping = (f/1000);
+	printf("%f",sleeping);
 	sleep(5);
     int i;
     FILE * fptr;
     fptr = fopen("data.txt", "w"); // "w" defines "writing mode"
     L:
-	memset(text, 0, 300);
-	len = read(fd, text, 300);
+	memset(text, 0, 400);
+	len = read(fd, text, 400);
     if(len==0){
         fclose(fptr);
         close(fd);
@@ -62,7 +64,8 @@ int main(){
             }
 	printf("Received %d bytes\n", len);
 	printf("Received string: %s\n", text);
-    sleep(f/100+1);
+
+    sleep(sleeping+1);
     goto L;
 	/* Read from serial port */
 }

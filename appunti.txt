@@ -1,4 +1,4 @@
-uso 3 canali 
+buso 3 canali 
 ADC1 000001
 adc3 000011
 ADC5 000101

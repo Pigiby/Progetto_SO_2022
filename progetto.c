@@ -7,22 +7,41 @@
 #include <string.h>
 #include "./avr_common/uart.h"
 
-#define TCCRA_1_MASK (1<<WGM10)|(1<<COM1C0)|(1<<COM1C1)|(1<<COM1A0)|(1<<COM1A1)
-#define TCCRB_1_MASK ((1<<WGM12)|(1<<CS10))
+//setting timer per i pin da campionare in modo da cambiarne il valore (utilizzo pwm)
+#define TCCRA_1_MASK (1<<WGM10)|(1<<COM1C0)|(1<<COM1C1) 
+#define TCCRB_1_MASK ((1<<WGM12)|(1<<CS10)) 
 #define TCCRA_3_MASK (1<<WGM30)|(1<<COM3B0)|(1<<COM3B1)
 #define TCCRB_3_MASK ((1<<WGM32)|(1<<CS30)|(1<<CS31))
 #define TCCRA_4_MASK (1<<WGM40)|(1<<COM4B0)|(1<<COM4B1)
 #define TCCRB_4_MASK ((1<<WGM42)|(1<<CS42))
+//ipostazioni uart prese dal codice delle esercitazioni
 #define BAUD 19600
 #define MYUBRR (F_CPU/16/BAUD-1)
+//variabili volatile utilizzate nell'ISR per inviare i dati al pc
+volatile int idx = 0;
+volatile char ok = 0;
+#define MAX_BUF 256
+char buf[MAX_BUF];
 float f = 0;
+ISR(USART0_UDRE_vect) {
+  if(buf[idx]){
+    UDR0 = buf[idx];
+    idx++;
+    UCSR0B |= (1<<5);
+  }
+  else{
+    ok = 1;
+    UCSR0B &= ~(1<<5);
+    idx = 0;
+  }
+}
 void UART_init(void){
   // Set baud rate
   UBRR0H = (uint8_t)(MYUBRR>>8);
   UBRR0L = (uint8_t)MYUBRR;
 
   UCSR0C = (1<<UCSZ01) | (1<<UCSZ00); /* 8-bit data */ 
-  UCSR0B = (1<<RXEN0) | (1<<TXEN0) | (1<<RXCIE0);   /* Enable RX and TX */  
+  UCSR0B = (1<<RXEN0) | (1<<TXEN0);   /* Enable RX and TX */  
 
 }
 
@@ -88,9 +107,10 @@ ISR(TIMER5_COMPA_vect) {
 void adc_setup(){
     //per prima cosa dobbiamo disabilitare gli interrupts
     cli();
+    //Azzeriamo il valore del registro
     ADMUX=0;
-    ADMUX |= (1<<MUX0);
-    ADMUX |= (1<<REFS0);
+    ADMUX |= (1<<MUX0); //selezionato il primo canale per la conversione
+    ADMUX |= (1<<REFS0); //refs0 acceso perchè specifichiamo il voltaggio di riferimento
     ADCSRA = 0; //resettiamo adcsra
     ADCSRA |= (1 << ADEN); // attiva adc
     ADCSRA |= (1 << ADPS0) | (1<<ADPS1); //prescaler di 8
@@ -99,13 +119,12 @@ void adc_setup(){
 void task(){
     volatile unsigned int x = 0;
         static const float ADC_to_V = 1*5/1023.0;
-        static const int ADC_CHANNELS = 3;
         float ADC_read[3] = {0,0,0};
         int i = 0;
         const int n = 50;
         const float n_inv = 1.0/n;
         float sum = 0;
-        char buf[MAX_BUF];
+        char aux[MAX_BUF];
         //iniziamo la conversione
         while(i<3){
             for (int k = 0; k < n;k++){
@@ -125,32 +144,38 @@ void task(){
             sum = 0;
         }
 
-        dtostrf(int_count*f/1000.0, 6, 7, buf);
-        UART_putString(buf);
-        UART_putString(" ");
-        dtostrf(ADC_read[0], 6,7, buf);
-        UART_putString(buf);
-        UART_putString(" ");
-        dtostrf(ADC_read[1], 6, 7, buf);
-        UART_putString(buf);
-        UART_putString(" ");
-        dtostrf(ADC_read[2], 6, 7, buf);
-        UART_putString(buf);
-        UART_putString("\n");
-        _delay_ms(100);
+        dtostrf(int_count*f/1000.0, 6, 7, aux);
+        strcpy(buf,aux);
+        strcat(buf," ");
+        dtostrf(ADC_read[0], 6,7, aux);
+        strcat(buf,aux);
+        strcat(buf," ");
+        dtostrf(ADC_read[1], 6, 7, aux);
+        strcat(buf,aux);
+        strcat(buf," ");
+        dtostrf(ADC_read[2], 6, 7, aux);
+        strcat(buf,aux);
+        strcat(buf,"\n");
+        UCSR0B |= (1<<5);
+        while(ok != 1){}
+        ok = 0;
         ADMUX=0;
         ADMUX |= (1<<MUX0);
         ADMUX |= (1<<REFS0);
 }
 int main(){
     UART_init();
-  UART_putString((char*)"write something, i'll repeat it\n");
-  char buf[MAX_BUF];
+    //polling sul registro rxc0 in attesa della frequenza di campionamento
+    //codice delle esercitazioni relative alla parte sulle UART
+    char buf[MAX_BUF];
     UART_getString(buf);
+    //Convertire la stringa ricevuta in float
     f = atof(buf);
     if(f>32766){
       f=32766;
     }
+    //setting del timer 5, timer che serve per campionare i 3 canali
+    // wave generator e setting del prescaler
     TCCR5A = 0;
     TCCR5B = (1 << WGM52) | (1 << CS50) | (1 << CS52);
     uint16_t timer_duration_ms=f;
@@ -179,8 +204,6 @@ int main(){
     OCR3BH= 0;
     OCR3BL= 1;
 
-  // the LED is connected to pin 13
-  // that is the bit 7 of port b, we set it as output
   const uint8_t mask_porta_b=(1<<7);
   //PIN 13 
   const uint8_t mask_porta_e=(1<<4);
@@ -190,19 +213,21 @@ int main(){
   // we configure the pin as output
   DDRB |= mask_porta_b;//mask;
   DDRE |= mask_porta_e;
-  DDRH |= mask_porta_e;
+  DDRH |= mask_porta_h;
   uint8_t intensity=0;
     
     adc_setup();
     while(1){
         while (! interrupt_occurred);
         interrupt_occurred=0;
+        //ogni volta che occorre un'interruzione da parte del timer 5 cambiom il valore dell'output
+        //compare register relativi ai pin campionati
         OCR1CL = intensity;
         OCR4BL = intensity;
         OCR3BL = intensity;
-         // from delay.h, wait 1 sec
         intensity+=8;
         task();
-        if(int_count >(60000.0/f)) return 0;
+        //campiono per 60 secondi
+        if(int_count >(60000/f)) return 0;
     }
 }
