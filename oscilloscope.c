@@ -8,7 +8,7 @@
 
 int main(){
 	int fd, len;
-	char text[400];
+	char text[2048];
 	struct termios options; /* Serial ports setting */
 
 	fd = open("/dev/ttyACM0", O_RDWR | O_NDELAY | O_NOCTTY);
@@ -26,19 +26,19 @@ int main(){
 	options.c_oflag = 0;
 	options.c_lflag = 0;
 
-	/* Apply the settings */
-	tcflush(fd, TCIFLUSH);
-	tcsetattr(fd, TCSANOW, &options);
+	
 
 	/* Write to serial port */
-    char msg[400];
+    char msg[2048];
     float f=0.0;
-    printf("ogni quanti millisecondi campionare (inserire un numero tra 1 e 4194):");
+    printf("ogni quanti millisecondi campionare (inserire un numero tra 100 e 4194, se il numero inserito è maggiore di 4194 o minore di 100 verrà scelto uno di default):");
     scanf("%f", &f );
+	if( f < 100) f = 100;
+	if(f > 4194) f = 4000;
     gcvt(f, 3, msg);
     strcat(msg,"\n");
 	strcpy(text, msg);
-	len = strlen(text);
+	len = strlen(msg);
 	len = write(fd, text, len);
 
 	printf("Wrote %d bytes over UART\n", len);
@@ -50,22 +50,23 @@ int main(){
     int i;
     FILE * fptr;
     fptr = fopen("data.txt", "w"); // "w" defines "writing mode"
-    L:
-	memset(text, 0, 400);
-	len = read(fd, text, 400);
-    if(len==0){
-        fclose(fptr);
-        close(fd);
-	    return 0;
-        }
-            for (i = 0; i<strlen(text); i++) {
-                fputc(text[i], fptr);
-                if(text[i]==EOF) goto L;
-            }
-	printf("Received %d bytes\n", len);
-	printf("Received string: %s\n", text);
+	len =  1;
+    while(len != 0){
+		memset(text, 0, 2048);
+		len = read(fd, text, 2048);
+		if(len==0){
 
-    sleep(sleeping+1);
-    goto L;
-	/* Read from serial port */
+			fclose(fptr);
+			close(fd);
+			return 0;
+			}
+				for (i = 0; i<strlen(text); i++) {
+					fputc(text[i], fptr);
+					if(text[i]==EOF) return 0;
+				}
+		printf("Received %d bytes\n", len);
+		printf("Received string: %s\n", text);
+
+		sleep(sleeping+1);
+    }
 }

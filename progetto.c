@@ -15,7 +15,7 @@
 #define TCCRA_4_MASK (1<<WGM40)|(1<<COM4B0)|(1<<COM4B1)
 #define TCCRB_4_MASK ((1<<WGM42)|(1<<CS42))
 //ipostazioni uart prese dal codice delle esercitazioni
-#define BAUD 19600
+#define BAUD 19200
 #define MYUBRR (F_CPU/16/BAUD-1)
 //variabili volatile utilizzate nell'ISR per inviare i dati al pc
 volatile int idx = 0;
@@ -124,7 +124,6 @@ void task(){
         const int n = 50;
         const float n_inv = 1.0/n;
         float sum = 0;
-        char aux[MAX_BUF];
         //iniziamo la conversione
         while(i<3){
             for (int k = 0; k < n;k++){
@@ -143,18 +142,23 @@ void task(){
                 }
             sum = 0;
         }
-
-        dtostrf(int_count*f/1000.0, 6, 7, aux);
-        strcpy(buf,aux);
+      
+        dtostrf(int_count*f/1000.0, 5, 5, buf);
         strcat(buf," ");
-        dtostrf(ADC_read[0], 6,7, aux);
-        strcat(buf,aux);
+        UCSR0B |= (1<<5);
+        while(ok != 1){}
+        ok = 0;
+        dtostrf(ADC_read[0], 5,5, buf);
         strcat(buf," ");
-        dtostrf(ADC_read[1], 6, 7, aux);
-        strcat(buf,aux);
+        UCSR0B |= (1<<5);
+        while(ok != 1){}
+        ok = 0;
+        dtostrf(ADC_read[1], 5, 5, buf);
         strcat(buf," ");
-        dtostrf(ADC_read[2], 6, 7, aux);
-        strcat(buf,aux);
+        UCSR0B |= (1<<5);
+        while(ok != 1){}
+        ok = 0;
+        dtostrf(ADC_read[2], 5, 5, buf);
         strcat(buf,"\n");
         UCSR0B |= (1<<5);
         while(ok != 1){}
