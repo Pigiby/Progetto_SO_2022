@@ -55,7 +55,6 @@ int main(){
 		memset(text, 0, 2048);
 		len = read(fd, text, 2048);
 		if(len==0){
-
 			fclose(fptr);
 			close(fd);
 			return 0;
