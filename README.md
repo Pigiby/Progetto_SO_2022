@@ -43,12 +43,13 @@ Per questa parte del progetto ho usato i pdf usati a lezione (possiamo trovarli 
 #define TCCRA_4_MASK (1<<WGM40)|(1<<COM4B0)|(1<<COM4B1)
 #define TCCRB_4_MASK ((1<<WGM42)|(1<<CS42))
 ```
-I COMnA1:0, COMnB1:0, e COMnC1:0 controllano gli outcompare pins (OCnA, OCnB, e OCnC rispettivamente
+I COMnA1:0, COMnB1:0, e COMnC1:0 controllano gli outcompare pins (OCnA, OCnB, e OCnC rispettivamente)
+***
 WGMn1:0 combinato con WGMn3:2 del registro TTCRnB controllano la sequenza del contatore e dicono quale tipo di forma d'onda viene è stata generata.
-
+***
 Dal datasheet
 "CSn2:0 The three clock select bits select the clock source to be used by the Timer/Counter".
-
+***
 Utilizzo gli 8 bit inferiori degli output compare registers e quindi setto a 0 tutti quelli superiori.
 ```C
 OCR1AH=0;
@@ -66,6 +67,5 @@ OCR1AH=0;
 Il timer 5 è stato utilizzato per campionare i 3 canali, ogni volta che questo timer raggiunge il valore dell'OCR viene inviata un interrupt che viene gestita dall'interrupt service routine che provvederà a incrementare alcune variabili.
 
 ### 3) UART
-
-
+Come per i timer, per quanto riguarda le UART ho usato i pdf e il codice delle lezioni.
 
