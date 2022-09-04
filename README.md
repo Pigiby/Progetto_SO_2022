@@ -109,7 +109,12 @@ ISR(USART0_UDRE_vect) {
 }        
 ```
 #### 4) Test
-Per testare l'applicazione clonare la repository all'interno di una cartella, lanciare il comando 'make' e 'gcc -o oscilloscope oscilloscope.c'.
+Per testare l'applicazione clonare la repository all'interno di una cartella, lanciare i comandi 'make','make progetto.hex' ,'gcc -o oscilloscope oscilloscope.c'. Per avviare ./oscilloscope.
+Il file oscilloscope.c permette di collegarsi alla seriale e di inviargli i dati, questo è stato possibile grazie all'interfaccia termios.
 ```C
-git clone 
+git clone https://github.com/Pigiby/Progetto_SO_2022.git
+make
+make progetto.hex
+gcc -o oscilloscope oscilloscope.c
+./oscilloscope
 ```
