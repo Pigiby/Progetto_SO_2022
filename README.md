@@ -7,13 +7,15 @@ Per fare ciò ho utilizzato la scheda ATMEGA 2560 e alcune sue funzionalità: An
 
 ### 1)ADC
 Per prima cosa ci occupiamo della conversione. L'ADC converte un voltaggio analogico in input in un valore digitale a 10 bit attraverso successive approssimazioni. Il minimo valore è rappresentato dal ground mentre il valore massimo dipende dalla scheda utilizzata (solitamente 5V). I canali scelti (oppure solo uno) viene selezionato scrivendo i MUX bit negli indirizzi ADMUX e ADCSRB. Nel mio caso ho utilizzato 3 canali ADC1, ADC3 e ADC5, seguendo le indicazioni del datasheet ho settato opportunamente i registri a seconda di quale canale stessi convertendo:
-***
-ADMUX |= 1 << MUX0 |= 1 << REFS0 (channel 1)
-***
+```python
+ ADMUX |= 1 << MUX0 |= 1 << REFS0 (channel 1)
+
 ADMUX |= 1 << MUX0 |= 1 << MUX1 |= 1<< REFS0 (channel 3)
-***
+
 ADMUX |= 1 << MUX0 |= 1 << MUX2 |= 1<< REFS0 (channel 5)
-***
+```
+
+
 Per la conversione analogica ho utilizzato il metodo del Polling: aspetto che finisca la conversione di un canale per poi passare al prossimo.
 Contiamo il numero delle misure e facciamo una media.
 Dobbiamo accedere al bit ADSC bit in ADCSRA, così quando inizia la conversione il bit ADSC viene letto a 1 e quando finisce viene settato a 0. Per fare questo usiamo l'operatore and. 
