@@ -51,7 +51,7 @@ Dal datasheet
 "CSn2:0 The three clock select bits select the clock source to be used by the Timer/Counter".
 ***
 Utilizzo gli 8 bit inferiori degli output compare registers e quindi setto a 0 tutti quelli superiori.
-```C
+
 OCR1AH=0;
     OCR1BH=0;
     OCR1CH=0;
@@ -67,5 +67,49 @@ OCR1AH=0;
 Il timer 5 è stato utilizzato per campionare i 3 canali, ogni volta che questo timer raggiunge il valore dell'OCR viene inviata un interrupt che viene gestita dall'interrupt service routine che provvederà a incrementare alcune variabili.
 
 ### 3) UART
-Come per i timer, per quanto riguarda le UART ho usato i pdf e il codice delle lezioni.
+Come per i timer, per quanto riguarda le UART ho usato i pdf e il codice delle lezioni. Per prima cosa ho settato opportunamente lo UBRR e l'UCSR,
+```C
+// Set baud rate
+  UBRR0H = (uint8_t)(MYUBRR>>8);
+  UBRR0L = (uint8_t)MYUBRR;
 
+  UCSR0C = (1<<UCSZ01) | (1<<UCSZ00); /* 8-bit data */ 
+  UCSR0B = (1<<RXEN0) | (1<<TXEN0);   /* Enable RX and TX */  
+
+```
+quindi faccio polling per ricevere una stringa. Viene fatto polling sul pin RXC0.
+```C
+while ( !(UCSR0A & (1<<RXC0)) );
+```
+Una volta ricevuta la stringa il programma continuerà la sua esecuzione e procederà con la task.
+La trasmissione dei dati viene fatta tramite interrupt, questi vengono salvati all'interno di una variabile globale.
+Quando il bit UDRIEn bit è settato a uno di UCSRnB verrà generata un interrupt fino a che il registro UDREn è settato.
+UDREn è pulito scrivendo su UDRn.
+***
+"Dal datasheet: When interrupt-driven data transmission is used, the Data Register Empty
+interrupt routine must either write new data to UDRn in order to clear UDREn or disable the Data Register Empty
+interrupt, otherwise a new interrupt will occur once the interrupt routine terminates."
+```C
+...
+UCSR0B |= (1<<5); //il bit 5 è quello relativo a UDRIEn
+        while(ok != 1){}
+        ok = 0;
+...
+ISR(USART0_UDRE_vect) {
+  if(buf[idx]){
+    UDR0 = buf[idx];
+    idx++;
+    UCSR0B |= (1<<5);
+  }
+  else{
+    ok = 1;
+    UCSR0B &= ~(1<<5);
+    idx = 0;
+  }
+}        
+```
+#### 4) Test
+Per testare l'applicazione clonare la repository all'interno di una cartella, lanciare il comando 'make' e 'gcc -o oscilloscope oscilloscope.c'.
+```C
+git clone 
+```
