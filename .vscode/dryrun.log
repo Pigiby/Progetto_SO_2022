@@ -1,4 +1,5 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-"make.exe" non � riconosciuto come comando interno o esterno,
- un programma eseguibile o un file batch.
-
+make --dry-run --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/pgb_2/Onedrive/Documenti/GitHub/Progetto_SO_2022'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/mnt/c/Users/pgb_2/Onedrive/Documenti/GitHub/Progetto_SO_2022'
+ 
