@@ -5,9 +5,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Sun Sep  4 09:47:45 2022
+# Make data base, printed on Sun Sep  4 10:23:02 2022
 
 # Variables
 
@@ -28,11 +27,11 @@ AVRDUDE_PORT = /dev/ttyACM0
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /mnt/c/Users/pgb_2/Onedrive/Documenti/GitHub/Progetto_SO_2022
+CURDIR := /mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"it","availableLanguages":{}}
+VSCODE_NLS_CONFIG = {"locale":"it","availableLanguages":{"*":"it"},"_languagePackId":"733e63a346861b85a80ab453548d8e7a.it","_translationsConfigFile":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it/tcf.json","_cacheRoot":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it","_resolvedLanguagePackCoreLocation":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it/784b0177c56c607789f9638da7b6bf3230d47a8c","_corruptedFile":"/home/pigy/.vscode-server/data/clp/733e63a346861b85a80ab453548d8e7a.it/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code/bin/code
 # makefile (from 'avr_common/avr.mk', line 19)
@@ -56,7 +55,7 @@ INCLUDE_DIRS = -I. -I../avr_common
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/pigy/.vscode-server/bin/784b0177c56c607789f9638da7b6bf3230d47a8c/bin/remote-cli:/home/pigy/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python310/Scripts/:/mnt/c/Python310/:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python37/Scripts/:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python37/:/mnt/c/Users/pgb_2/AppData/Local/Microsoft/WindowsApps:/mnt/c/Android:/mnt/c/Windows/System32:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/d/Kathara:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python310/Scripts/:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python310/:/mnt/c/Program Files/ffmpeg-2022-08-31-git-319e8a49b5-essentials_build/bin:/mnt/c/Users/pgb_2/AppData/Roaming/npm:/mnt/c/Users/pgb_2/AppData/Local/GitHubDesktop/bin:/mnt/c/xampp/php:/mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files (x86)/Nmap:/mnt/c/Program Files/Npcap:/mnt/c/Program Files/ISC BIND 9/bin:/mnt/c/Program Files/Erlang OTP/bin:/snap/bin
+PATH = /home/pigy/.vscode-server/bin/784b0177c56c607789f9638da7b6bf3230d47a8c/bin/remote-cli:/home/pigy/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.7/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.7/libnvvp:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2022.2.1/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/ffmpeg-5.1-essentials_build/bin:/mnt/c/Users/pgb_2/AppData/Local/Programs/Python/Python36/:/mnt/c/Users/pgb_2/anaconda3:/mnt/c/Users/pgb_2/anaconda3/Library/mingw-w64/bin:/mnt/c/Users/pgb_2/anaconda3/Library/usr/bin:/mnt/c/Users/pgb_2/anaconda3/Library/bin:/mnt/c/Users/pgb_2/anaconda3/Scripts:/mnt/c/Python34/Scripts:/mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/pgb_2/AppData/Local/GitHubDesktop/bin:/mnt/c/xampp/php:/mnt/c/Users/pgb_2/AppData/Roaming/npm:/mnt/c/Users/pgb_2/AppData/Local/Yarn/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v10.1:/mnt/c/Python34:/mnt/c/Users/pgb_2/.dotnet/tools:/snap/bin
 # environment
 XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # makefile (from 'avr_common/avr.mk', line 8)
@@ -64,7 +63,7 @@ AVRDUDE = avrdude
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-f6a12801-1eff-4613-914a-b5999eb64da7.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-31c3dd0c-e9a3-4930-a5af-d6c1c67f55a5.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -74,11 +73,11 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 DISPLAY = :0
 # environment
-PWD = /mnt/c/Users/pgb_2/Onedrive/Documenti/GitHub/Progetto_SO_2022
+PWD = /mnt/c/Users/pgb_2/Documents/GitHub/Progetto_SO_2022
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/8_interop
+WSL_INTEROP = /run/WSL/442_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
@@ -127,8 +126,6 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET):i
 VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/pgb_2/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.3
 # default
 MAKE_COMMAND := make
-# environment
-OLDPWD = /mnt/c/Users/pgb_2/AppData/Local/Programs/Microsoft VS Code
 # default
 .VARIABLES := 
 # makefile (from 'Makefile', line 7)
@@ -171,10 +168,8 @@ LANG = C
 TERM = xterm-256color
 # environment
 WSL_DISTRO_NAME = Ubuntu
-# environment
-MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=81/1024=8%, Rehash=0, Collisions=9/121=7%
+# Load=79/1024=8%, Rehash=0, Collisions=9/119=8%
 
 # Pattern-specific Variable Values
 
@@ -182,10 +177,10 @@ MOTD_SHOWN = update-motd
 
 # Directories
 
-# . (device 65, inode 9007199254867224): 16 files, no impossibilities.
-# avr_common (device 65, inode 7318349394628125): 4 files, no impossibilities so far.
+# . (device 65, inode 844424930264742): 15 files, no impossibilities.
+# avr_common (device 65, inode 1688849860479703): 4 files, no impossibilities so far.
 
-# 20 files, no impossibilities in 2 directories.
+# 19 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -239,7 +234,7 @@ all: progetto.elf
 progetto.elf: progetto.o avr_common/uart.o
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'progetto'
-#  Last modified 2022-09-04 09:46:50.7249851
+#  Last modified 2022-09-04 10:21:55.370349
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 33):
@@ -248,7 +243,7 @@ progetto.elf: progetto.o avr_common/uart.o
 avr_common/uart.o: avr_common/uart.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'avr_common/uart'
-#  Last modified 2022-09-04 09:46:50.6078133
+#  Last modified 2022-09-04 10:21:55.2447962
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'avr_common/avr.mk', line 27):
@@ -257,28 +252,28 @@ avr_common/uart.o: avr_common/uart.c
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-04 09:46:32.6376152
+#  Last modified 2022-09-04 10:12:44.7402256
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 progetto.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-02 22:27:53.4894704
+#  Last modified 2022-09-04 09:39:28.8067383
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 avr_common/uart.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-02 10:33:18.3015676
+#  Last modified 2022-08-22 10:11:57.5144198
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
+ 
 .DEFAULT:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -292,7 +287,7 @@ clean:
 # Not a target:
 avr_common/avr.mk:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-02 10:33:18.3015676
+#  Last modified 2022-08-16 19:11:28.1349814
 #  File has been updated.
 #  Successfully updated.
 
@@ -304,12 +299,12 @@ avr_common/avr.mk:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 37 / storage = 365 B / avg = 9 B
-# current buf: size = 8162 B / used = 365 B / count = 37 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 36 / storage = 347 B / avg = 9 B
+# current buf: size = 8162 B / used = 347 B / count = 36 / avg = 9 B
 
-# strcache performance: lookups = 65 / hit rate = 43%
+# strcache performance: lookups = 64 / hit rate = 43%
 # hash-table stats:
-# Load=37/8192=0%, Rehash=0, Collisions=4/65=6%
-# Finished Make data base on Sun Sep  4 09:47:45 2022
+# Load=36/8192=0%, Rehash=0, Collisions=4/64=6%
+# Finished Make data base on Sun Sep  4 10:23:02 2022
 
  
