@@ -47,8 +47,7 @@ I COMnA1:0, COMnB1:0, e COMnC1:0 controllano gli outcompare pins (OCnA, OCnB, e 
 ***
 WGMn1:0 combinato con WGMn3:2 del registro TTCRnB controllano la sequenza del contatore e dicono quale tipo di forma d'onda viene è stata generata.
 ***
-Dal datasheet
-"CSn2:0 The three clock select bits select the clock source to be used by the Timer/Counter".
+CSn2:0 questi 3 bit selezionano la sorgente del clock da utilizzare dal contatore del timer.
 ***
 Utilizzo gli 8 bit inferiori degli output compare registers e quindi setto a 0 tutti quelli superiori.
 
@@ -64,6 +63,9 @@ OCR1AH=0;
     OCR3BH= 0;
     OCR3BL= 1;
     ```
+***
+L'output compare register contiene un valore di 16 bit che è continuamente comparato con il valore del counter. Un match può essere usato per generare un interrupt oppure per generare una forma d'onda.
+***
 Il timer 5 è stato utilizzato per campionare i 3 canali, ogni volta che questo timer raggiunge il valore dell'OCR viene inviata un interrupt che viene gestita dall'interrupt service routine che provvederà a incrementare alcune variabili.
 
 ### 3) UART
@@ -83,12 +85,10 @@ while ( !(UCSR0A & (1<<RXC0)) );
 ```
 Una volta ricevuta la stringa il programma continuerà la sua esecuzione e procederà con la task.
 La trasmissione dei dati viene fatta tramite interrupt, questi vengono salvati all'interno di una variabile globale.
-Quando il bit UDRIEn bit è settato a uno di UCSRnB verrà generata un interrupt fino a che il registro UDREn è settato.
-UDREn è pulito scrivendo su UDRn.
+Quando il bit UDRIEn bit è settato a uno di UCSRnB verrà generata un interrupt che dura fino a che il registro UDREn è a 1.
+UDREn viene pulito scrivendo su UDRn.
 ***
-"Dal datasheet: When interrupt-driven data transmission is used, the Data Register Empty
-interrupt routine must either write new data to UDRn in order to clear UDREn or disable the Data Register Empty
-interrupt, otherwise a new interrupt will occur once the interrupt routine terminates."
+Quando viene generata un interrupt bisogna scrivere un nuovo dato in UDRn affinchè venga pulito il bit UDREn oppure disabilitare l'interrupt.
 ```C
 ...
 UCSR0B |= (1<<5); //il bit 5 è quello relativo a UDRIEn
