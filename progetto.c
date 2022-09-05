@@ -17,10 +17,11 @@
 //ipostazioni uart prese dal codice delle esercitazioni
 #define BAUD 19200
 #define MYUBRR (F_CPU/16/BAUD-1)
+#define MAX_BUF 256
 //variabili volatile utilizzate nell'ISR per inviare i dati al pc
+volatile uint8_t interrupt_occurred=0;
 volatile int idx = 0;
 volatile char ok = 0;
-#define MAX_BUF 256
 char buf[MAX_BUF];
 float f = 0;
 ISR(USART0_UDRE_vect) {
@@ -89,8 +90,6 @@ void UART_putString(char* buf){
     ++buf;
   }
 }
-#define MAX_BUF 256
-volatile uint8_t interrupt_occurred=0;
 
 // our interrupt routine installed in
 // interrupt vector position
@@ -104,7 +103,7 @@ ISR(TIMER5_COMPA_vect) {
 }
 // adc setup
 
-void adc_setup(){
+void ADC_init(){
     //per prima cosa dobbiamo disabilitare gli interrupts
     cli();
     //Azzeriamo il valore del registro
@@ -116,7 +115,7 @@ void adc_setup(){
     ADCSRA |= (1 << ADPS0) | (1<<ADPS1); //prescaler di 8
     sei();
 }
-void task(){
+void oscillscope(){
     volatile unsigned int x = 0;
         static const float ADC_to_V = 1*5/1023.0;
         float ADC_read[3] = {0,0,0};
@@ -220,7 +219,7 @@ int main(){
   DDRH |= mask_porta_h;
   uint8_t intensity=0;
     
-    adc_setup();
+    ADC_init();
     while(1){
         while (! interrupt_occurred);
         interrupt_occurred=0;
@@ -230,7 +229,7 @@ int main(){
         OCR4BL = intensity;
         OCR3BL = intensity;
         intensity+=8;
-        task();
+        oscilloscope();
         //campiono per 60 secondi
         if(int_count >(60000/f)) return 0;
     }

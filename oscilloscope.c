@@ -22,8 +22,8 @@ int main(){
 	// tcgetattr(fd, &options);
 	
 	/* Set up serial port */
-	options.c_cflag = B19200 | CS8 | CLOCAL|CREAD;
-	options.c_iflag = IGNPAR;
+	options.c_cflag = B19200 | CS8 |CREAD;
+	options.c_iflag = 0;
 	options.c_oflag = 0;
 	options.c_lflag = 0;
    if(tcsetattr(fd,TCSANOW,&options)!=0){
