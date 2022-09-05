@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <string.h>
+#include <errno.h>
 
 int main(){
 	int fd, len;
@@ -12,10 +13,10 @@ int main(){
 	struct termios options; /* Serial ports setting */
 
 	fd = open("/dev/ttyACM0", O_RDWR | O_NDELAY | O_NOCTTY);
-	if (fd < 0) {
-		perror("Error opening serial port");
-		return -1;
-	}
+	if(tcgetattr(fd,&options)!=0){
+        printf("Error %i from tcgetattr: %s\n",errno,strerror(errno));
+        return 1;
+    }
 
 	/* Read current serial port settings */
 	// tcgetattr(fd, &options);
@@ -25,9 +26,11 @@ int main(){
 	options.c_iflag = IGNPAR;
 	options.c_oflag = 0;
 	options.c_lflag = 0;
+   if(tcsetattr(fd,TCSANOW,&options)!=0){
 
-	
-
+        printf("Error %i from tcgetattr: %s\n",errno,strerror(errno));
+        return 1;
+    }
 	/* Write to serial port */
     char msg[2048];
     float f=0.0;
@@ -54,7 +57,7 @@ int main(){
     while(len != 0){
 		memset(text, 0, 2048);
 		len = read(fd, text, 2048);
-		if(len==0){
+		if(len==0 || len==-1){
 			fclose(fptr);
 			close(fd);
 			return 0;
