@@ -52,17 +52,17 @@ CSn2:0 questi 3 bit selezionano la sorgente del clock da utilizzare dal contator
 Utilizzo gli 8 bit inferiori degli output compare registers e quindi setto a 0 tutti quelli superiori.
 ```C
 OCR1AH=0;
-    OCR1BH=0;
-    OCR1CH=0;
-    OCR1CL=1;
-    OCR4AH=0;
-    OCR4BH=0;
-    OCR4CH=0;
-    OCR4BL=1;
-    OCR3AH= 0;
-    OCR3BH= 0;
-    OCR3BL= 1;
-    ```
+OCR1BH=0;
+OCR1CH=0;
+OCR1CL=1;
+OCR4AH=0;
+OCR4BH=0;
+OCR4CH=0;
+OCR4BL=1;
+OCR3AH= 0;
+OCR3BH= 0;
+OCR3BL= 1;
+```
 ***
 L'output compare register contiene un valore di 16 bit che è continuamente comparato con il valore del counter. Un match può essere usato per generare un interrupt oppure per generare una forma d'onda.
 ***
