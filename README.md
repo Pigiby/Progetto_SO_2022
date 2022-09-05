@@ -50,7 +50,7 @@ WGMn1:0 combinato con WGMn3:2 del registro TTCRnB controllano la sequenza del co
 CSn2:0 questi 3 bit selezionano la sorgente del clock da utilizzare dal contatore del timer.
 ***
 Utilizzo gli 8 bit inferiori degli output compare registers e quindi setto a 0 tutti quelli superiori.
-
+```C
 OCR1AH=0;
     OCR1BH=0;
     OCR1CH=0;
