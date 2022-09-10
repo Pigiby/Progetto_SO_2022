@@ -115,7 +115,7 @@ void ADC_init(){
     ADCSRA |= (1 << ADPS0) | (1<<ADPS1); //prescaler di 8
     sei();
 }
-void oscillscope(){
+void oscilloscope(){
     volatile unsigned int x = 0;
         static const float ADC_to_V = 1*5/1023.0;
         float ADC_read[3] = {0,0,0};
