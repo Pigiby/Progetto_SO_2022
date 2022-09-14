@@ -130,7 +130,7 @@ void oscilloscope(){
                 while(ADCSRA & (1 << ADSC)) x++;
                 sum += ADC;
             }
-            ADC_read[i] = (float)sum*n_inv*ADC_to_V-2.5;
+            ADC_read[i] = (float)sum*n_inv*ADC_to_V;
             i++;
             ADMUX=0;
             if(i==1) {
@@ -218,7 +218,8 @@ int main(){
   DDRE |= mask_porta_e;
   DDRH |= mask_porta_h;
   uint8_t intensity=0;
-    
+  int val = 0;
+  int k = 8;  
     ADC_init();
     while(1){
         while (! interrupt_occurred);
@@ -228,7 +229,16 @@ int main(){
         OCR1CL = intensity;
         OCR4BL = intensity;
         OCR3BL = intensity;
-        intensity+=8;
+        val+=k;
+        if(val > 255){
+          k = k*-1;
+          val = 255;
+        }
+        else if(val < 0){
+          k = k*-1;
+          val = 0;
+        }
+        intensity = (uint8_t)val;
         oscilloscope();
         //campiono per 60 secondi
         if(int_count >(60000/f)) return 0;
