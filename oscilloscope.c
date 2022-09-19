@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -26,10 +25,7 @@ int main(){
 	// tcgetattr(fd, &options);
 	
 	/* Set up serial port */
-	options.c_cflag = B19200 | CS8 |CREAD;
-	options.c_iflag = 0;
-	options.c_oflag = 0;
-	options.c_lflag = 0;
+	options.c_cflag = B19200 | CS8 ;
    if(tcsetattr(fd,TCSANOW,&options)!=0){
 
         printf("Error %i from tcgetattr: %s\n",errno,strerror(errno));
@@ -58,7 +54,7 @@ int main(){
     FILE * fptr;
     fptr = fopen("data.txt", "w"); // "w" defines "writing mode"
 	len =  1;
-    while(len != 0){
+    while(1){
 		memset(text, 0, 2048);
 		len = read(fd, text, 2048);
 		if(len==0 || len==-1){

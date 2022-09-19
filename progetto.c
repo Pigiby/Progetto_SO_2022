@@ -9,11 +9,11 @@
 
 //setting timer per i pin da campionare in modo da cambiarne il valore (utilizzo pwm)
 #define TCCRA_1_MASK (1<<WGM10)|(1<<COM1C0)|(1<<COM1C1) 
-#define TCCRB_1_MASK ((1<<WGM12)|(1<<CS10)) 
+#define TCCRB_1_MASK ((1<<WGM12)|(1<<CS10)|(1<<CS11)) 
 #define TCCRA_3_MASK (1<<WGM30)|(1<<COM3B0)|(1<<COM3B1)
 #define TCCRB_3_MASK ((1<<WGM32)|(1<<CS30)|(1<<CS31))
-#define TCCRA_4_MASK (1<<WGM40)|(1<<COM4B0)|(1<<COM4B1)
-#define TCCRB_4_MASK ((1<<WGM42)|(1<<CS42))
+#define TCCRA_4_MASK (1<<WGM40)|(1<<COM4C0)|(1<<COM4C1)
+#define TCCRB_4_MASK ((1<<WGM42)|(1<<CS40)|(1<<CS41))
 //ipostazioni uart prese dal codice delle esercitazioni
 #define BAUD 19200
 #define MYUBRR (F_CPU/16/BAUD-1)
@@ -22,8 +22,8 @@
 volatile uint8_t interrupt_occurred=0;
 volatile int idx = 0;
 volatile char ok = 0;
+float f;
 char buf[MAX_BUF];
-float f = 0;
 ISR(USART0_UDRE_vect) {
   if(buf[idx]){
     UDR0 = buf[idx];
@@ -96,7 +96,7 @@ void UART_putString(char* buf){
 // corresponding to output compare
 // of timer 5
 
-float int_count=0.0;
+volatile float int_count=0.0;
 ISR(TIMER5_COMPA_vect) {
   interrupt_occurred=1;
   int_count++;
@@ -168,15 +168,11 @@ void oscilloscope(){
 }
 int main(){
     UART_init();
-    //polling sul registro rxc0 in attesa della frequenza di campionamento
-    //codice delle esercitazioni relative alla parte sulle UART
-    char buf[MAX_BUF];
-    UART_getString(buf);
+    //polling sul registro rxc0 in attesa dell'intervallo' di campionamento
+    char time[MAX_BUF];
+    UART_getString(time);
     //Convertire la stringa ricevuta in float
-    f = atof(buf);
-    if(f>32766){
-      f=32766;
-    }
+    f = atof(time);
     //setting del timer 5, timer che serve per campionare i 3 canali
     // wave generator e setting del prescaler
     TCCR5A = 0;
@@ -184,10 +180,9 @@ int main(){
     uint16_t timer_duration_ms=f;
     uint16_t ocrval=(uint16_t)(15.62*timer_duration_ms);
      OCR5A = ocrval;
-    cli();
+    cli(); //disable int
   TIMSK5 |= (1 << OCIE5A);  // enable the timer interrupt
-  // enable int
-  sei();
+  sei(); // enable int
     TCCR1A=TCCRA_1_MASK;
     TCCR1B=TCCRB_1_MASK;
     TCCR3A=TCCRA_3_MASK;
@@ -195,50 +190,35 @@ int main(){
     TCCR4A=TCCRA_4_MASK;
     TCCR4B=TCCRB_4_MASK;
     // clear all higher bits of output compare for timer
-    OCR1AH=0;
-    OCR1BH=0;
     OCR1CH=0;
-    OCR1CL=1;
-    OCR4AH=0;
-    OCR4BH=0;
     OCR4CH=0;
-    OCR4BL=1;
-    OCR3AH= 0;
     OCR3BH= 0;
-    OCR3BL= 1;
 
   const uint8_t mask_porta_b=(1<<7);
   //PIN 13 
+  const uint8_t mask_porta_h=(1<<5);
+  //PIN 8
   const uint8_t mask_porta_e=(1<<4);
   //PIN 2
-  const uint8_t mask_porta_h=(1<<4);
-  //PIN 7
   // we configure the pin as output
   DDRB |= mask_porta_b;//mask;
-  DDRE |= mask_porta_e;
   DDRH |= mask_porta_h;
-  uint8_t intensity=0;
-  int val = 0;
-  int k = 8;  
+  DDRE |= mask_porta_e;
+  uint8_t intensity_timer_1=0;
+  uint8_t intensity_timer_3=0;
+  uint8_t intensity_timer_4=0;  
     ADC_init();
     while(1){
         while (! interrupt_occurred);
         interrupt_occurred=0;
         //ogni volta che occorre un'interruzione da parte del timer 5 cambiom il valore dell'output
         //compare register relativi ai pin campionati
-        OCR1CL = intensity;
-        OCR4BL = intensity;
-        OCR3BL = intensity;
-        val+=k;
-        if(val > 255){
-          k = k*-1;
-          val = 255;
-        }
-        else if(val < 0){
-          k = k*-1;
-          val = 0;
-        }
-        intensity = (uint8_t)val;
+        OCR1CL = intensity_timer_1;
+        OCR3BL = intensity_timer_3;
+        OCR4CL = intensity_timer_4;
+        intensity_timer_1 += 8;
+        intensity_timer_3 += 4;
+        intensity_timer_4 += 2;
         oscilloscope();
         //campiono per 60 secondi
         if(int_count >(60000/f)) return 0;
